@@ -52,7 +52,7 @@ class Ui_Main_Window(object):
         self.toolBox.setObjectName(u"toolBox")
         self.page = QWidget()
         self.page.setObjectName(u"page")
-        self.page.setGeometry(QRect(0, 0, 320, 559))
+        self.page.setGeometry(QRect(0, -154, 306, 713))
         self.horizontalLayout_3 = QHBoxLayout(self.page)
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
         self.frame_3 = QFrame(self.page)
@@ -94,33 +94,41 @@ class Ui_Main_Window(object):
 
         self.frame_6 = QFrame(self.frame_3)
         self.frame_6.setObjectName(u"frame_6")
+        self.frame_6.setMinimumSize(QSize(0, 500))
         self.frame_6.setFrameShape(QFrame.StyledPanel)
         self.frame_6.setFrameShadow(QFrame.Raised)
         self.label_2 = QLabel(self.frame_6)
         self.label_2.setObjectName(u"label_2")
         self.label_2.setGeometry(QRect(10, 10, 261, 17))
+        self.fileSize = QLabel(self.frame_6)
+        self.fileSize.setObjectName(u"fileSize")
+        self.fileSize.setGeometry(QRect(10, 50, 261, 17))
+        self.dbContent = QLabel(self.frame_6)
+        self.dbContent.setObjectName(u"dbContent")
+        self.dbContent.setGeometry(QRect(10, 90, 261, 500))
+        self.dbContent.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignTop)
 
         self.verticalLayout_2.addWidget(self.frame_6)
 
-        self.comboBox = QComboBox(self.frame_3)
-        self.comboBox.setObjectName(u"comboBox")
+        self.cb_fleet = QComboBox(self.frame_3)
+        self.cb_fleet.setObjectName(u"cb_fleet")
 
-        self.verticalLayout_2.addWidget(self.comboBox)
+        self.verticalLayout_2.addWidget(self.cb_fleet)
 
-        self.comboBox_2 = QComboBox(self.frame_3)
-        self.comboBox_2.setObjectName(u"comboBox_2")
+        self.cb_equi = QComboBox(self.frame_3)
+        self.cb_equi.setObjectName(u"cb_equi")
 
-        self.verticalLayout_2.addWidget(self.comboBox_2)
+        self.verticalLayout_2.addWidget(self.cb_equi)
 
-        self.comboBox_4 = QComboBox(self.frame_3)
-        self.comboBox_4.setObjectName(u"comboBox_4")
+        self.cb_PN = QComboBox(self.frame_3)
+        self.cb_PN.setObjectName(u"cb_PN")
 
-        self.verticalLayout_2.addWidget(self.comboBox_4)
+        self.verticalLayout_2.addWidget(self.cb_PN)
 
-        self.comboBox_5 = QComboBox(self.frame_3)
-        self.comboBox_5.setObjectName(u"comboBox_5")
+        self.cb_ = QComboBox(self.frame_3)
+        self.cb_.setObjectName(u"cb_")
 
-        self.verticalLayout_2.addWidget(self.comboBox_5)
+        self.verticalLayout_2.addWidget(self.cb_)
 
 
         self.horizontalLayout_3.addWidget(self.frame_3)
@@ -255,7 +263,7 @@ class Ui_Main_Window(object):
 
         self.retranslateUi(Main_Window)
 
-        self.toolBox.setCurrentIndex(2)
+        self.toolBox.setCurrentIndex(0)
         self.tabWidget.setCurrentIndex(0)
 
 
@@ -267,11 +275,13 @@ class Ui_Main_Window(object):
         self.fileName.setText(QCoreApplication.translate("Main_Window", u"File Name", None))
         self.browseButton.setText(QCoreApplication.translate("Main_Window", u"Browse", None))
         self.label_2.setText(QCoreApplication.translate("Main_Window", u"File Information :", None))
-        self.comboBox.setCurrentText("")
-        self.comboBox.setPlaceholderText(QCoreApplication.translate("Main_Window", u"Fleet", None))
-        self.comboBox_2.setPlaceholderText(QCoreApplication.translate("Main_Window", u"Equipement", None))
-        self.comboBox_4.setCurrentText("")
-        self.comboBox_4.setPlaceholderText(QCoreApplication.translate("Main_Window", u"Part Number", None))
+        self.fileSize.setText(QCoreApplication.translate("Main_Window", u"File Size : ", None))
+        self.dbContent.setText(QCoreApplication.translate("Main_Window", u"Database Table Content :", None))
+        self.cb_fleet.setCurrentText("")
+        self.cb_fleet.setPlaceholderText(QCoreApplication.translate("Main_Window", u"Fleet", None))
+        self.cb_equi.setPlaceholderText(QCoreApplication.translate("Main_Window", u"Equipement", None))
+        self.cb_PN.setCurrentText("")
+        self.cb_PN.setPlaceholderText(QCoreApplication.translate("Main_Window", u"Part Number", None))
         self.toolBox.setItemText(self.toolBox.indexOf(self.page), QCoreApplication.translate("Main_Window", u"Data Selection", None))
         self.pushButton_2.setText(QCoreApplication.translate("Main_Window", u"Refresh", None))
         self.toolBox.setItemText(self.toolBox.indexOf(self.page_3), QCoreApplication.translate("Main_Window", u"Graph Properties", None))

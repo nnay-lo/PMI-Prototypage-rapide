@@ -3,7 +3,7 @@ import os
 import sys
 
 from PySide6.QtCore import QDir
-from PySide6.QtWidgets import QApplication, QMainWindow, QPushButton, QFileDialog, QVBoxLayout
+from PySide6.QtWidgets import QApplication, QMainWindow, QPushButton, QFileDialog, QVBoxLayout, QSizePolicy
 
 
 import sqlite3
@@ -15,6 +15,7 @@ from sklearn.linear_model import LinearRegression
 from sklearn.preprocessing import PolynomialFeatures
 from scipy.signal import argrelextrema
 import random
+import math
 
 #import matplotlib.pyplot as plt
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
@@ -28,6 +29,18 @@ from ui_form import Ui_Main_Window
 
 
 # External Function :
+
+def convert_size(size_bytes):
+    """
+    Convert the size from bytes to the most appropriate measurement unit.
+    """
+    if size_bytes == 0:
+        return "0B"
+    size_name = ("B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB")
+    i = int(math.floor(math.log(size_bytes, 1024)))
+    p = math.pow(1024, i)
+    s = round(size_bytes / p, 2)
+    return f"{s} {size_name[i]}"
 
 def choose_best_regression(x, y):
     # Define the models
@@ -136,15 +149,32 @@ class Main_Window(QMainWindow):
         file_name, _ = QFileDialog.getOpenFileName(self, 'Select a .db file', os.path.dirname(os.path.abspath(__file__))+"/Databases", 'SQLite Database Files (*.db);;All Files (*)', options=options)
 
         if file_name:
-            #info = self.get_database_info(file_name)
-            #print(info["Error"])
-            #print(info["Size"])
+            info = self.get_database_info(file_name)
+            dim_data = info["Info"]
+
+            str_content = ""
+            for table in info["Tables"]:
+                str_content = str_content + " - " + table + " :\n\tColumns : " + str(dim_data[table]["columns"]) + "\n\tRows : " + str(dim_data[table]["rows"]) + "\n\n"
+
+            self.ui.dbContent.setText("Database Table Content :\n" + str_content)
+            self.ui.fileSize.setText("File Size : " + convert_size(info["Size"]))
+
             self.ui.fileName.setText(file_name.split("Databases/")[1])
+
+
+            self.ui.cb_fleet.clear()  # Clear existing items
+            self.ui.cb_fleet.addItems(self.extract_column_from_table(file_name, "Avion", "Reg"))  # Add new items
+
+            self.ui.cb_equi.clear()  # Clear existing items
+            self.ui.cb_equi.addItems(["Tube Pitot"])  # Add new items
+
+            self.ui.cb_PN.clear()  # Clear existing items
+            self.ui.cb_PN.addItems(self.extract_column_from_table(file_name, "Equipement", "PN"))  # Add new items
+
             self.get_linear_regression(file_name)
             self.get_occurency(file_name)
 
     def get_database_info(self, db_file):
-            try:
                 file_size = os.path.getsize(db_file)
                 conn = sqlite3.connect(db_file)
                 cursor = conn.cursor()
@@ -152,21 +182,27 @@ class Main_Window(QMainWindow):
                 cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
                 table_names = [table[0] for table in cursor.fetchall()]
 
+
                 table_info = {}
                 for table_name in table_names:
-                    cursor.execute(f"PRAGMA table_info({table_name});")
+                    # Enclose the table name in double quotes to handle spaces
+                    safe_table_name = f'"{table_name}"'
+
+                    # Get column information
+                    cursor.execute(f"PRAGMA table_info({safe_table_name});")
                     columns = cursor.fetchall()
                     num_columns = len(columns)
 
-                    cursor.execute(f"SELECT COUNT(*) FROM {table_name};")
+                    # Get row count
+                    cursor.execute(f"SELECT COUNT(*) FROM {safe_table_name};")
                     num_rows = cursor.fetchone()[0]
 
                     table_info[table_name] = {"rows": num_rows, "columns": num_columns}
 
+
                 conn.close()
-                return {"Size": file_size, "Tables": table_names, "Info": table_info}
-            except Exception as e:
-                return {"Error": str(e)}
+                return {"Size": file_size, "Tables": table_names, "Info" : table_info}
+
 
     def get_table_name(self, file_name):
         try:
@@ -192,8 +228,9 @@ class Main_Window(QMainWindow):
             return "Error connecting to the database: " + str(e)
 
 
-    def connect_to_database(self, file_name):
+    def extract_column_from_table(self, file_name, table_name, column_name):
         try:
+            list_row = []
             conn = sqlite3.connect(file_name)
             print("Connected to the database:", file_name)
 
@@ -201,23 +238,19 @@ class Main_Window(QMainWindow):
 
             table_names = self.get_table_name(file_name)
 
-            for table in table_names:
+            cursor.execute("SELECT " + column_name + " FROM " + table_name)
 
-                cursor.execute("SELECT * FROM " + table)
+            # Fetch all rows and column names
+            rows = cursor.fetchall()
 
-                # Fetch all rows and column names
-                rows = cursor.fetchall()
-                column_names = [description[0] for description in cursor.description]
+            # Print all rows
+            for row in rows:
+                if str(row[0]) not in list_row:
+                    list_row.append(str(row[0]))
 
-                # Print column names
-                print("Column Names:", column_names)
+            conn.close()
 
-                # Print all rows
-                for row in rows:
-                    print(row)
-
-                conn.close()
-
+            return(sorted(list_row))
 
         except sqlite3.Error as e:
             print("Error connecting to the database:", e)
