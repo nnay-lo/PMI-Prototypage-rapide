@@ -125,7 +125,7 @@ class Ui_Main_Window(object):
 
         self.horizontalLayout_3.addWidget(self.frame_3)
 
-        self.toolBox.addItem(self.page, u"Selection des Donn\u00e9es")
+        self.toolBox.addItem(self.page, u"Data Selection")
         self.page_3 = QWidget()
         self.page_3.setObjectName(u"page_3")
         self.page_3.setGeometry(QRect(0, 0, 320, 559))
@@ -137,7 +137,7 @@ class Ui_Main_Window(object):
         self.frame_4.setFrameShadow(QFrame.Raised)
         self.pushButton_2 = QPushButton(self.frame_4)
         self.pushButton_2.setObjectName(u"pushButton_2")
-        self.pushButton_2.setGeometry(QRect(10, 20, 241, 25))
+        self.pushButton_2.setGeometry(QRect(10, 20, 281, 25))
         icon2 = QIcon()
         iconThemeName = u"view-refresh"
         if QIcon.hasThemeIcon(iconThemeName):
@@ -149,7 +149,7 @@ class Ui_Main_Window(object):
 
         self.horizontalLayout_4.addWidget(self.frame_4)
 
-        self.toolBox.addItem(self.page_3, u"Propri\u00e9t\u00e9s du Graphique")
+        self.toolBox.addItem(self.page_3, u"Graph Properties")
         self.page_2 = QWidget()
         self.page_2.setObjectName(u"page_2")
         self.page_2.setGeometry(QRect(0, 0, 320, 559))
@@ -198,7 +198,7 @@ class Ui_Main_Window(object):
 
         self.horizontalLayout_5.addWidget(self.frame_5)
 
-        self.toolBox.addItem(self.page_2, u"Programme d'entretien")
+        self.toolBox.addItem(self.page_2, u"Maintenance Program")
 
         self.verticalLayout_3.addWidget(self.toolBox)
 
@@ -255,7 +255,7 @@ class Ui_Main_Window(object):
 
         self.retranslateUi(Main_Window)
 
-        self.toolBox.setCurrentIndex(0)
+        self.toolBox.setCurrentIndex(2)
         self.tabWidget.setCurrentIndex(0)
 
 
@@ -264,21 +264,21 @@ class Ui_Main_Window(object):
 
     def retranslateUi(self, Main_Window):
         Main_Window.setWindowTitle(QCoreApplication.translate("Main_Window", u"Predictive Maintenance", None))
-        self.fileName.setText(QCoreApplication.translate("Main_Window", u"nom du fichier", None))
-        self.browseButton.setText(QCoreApplication.translate("Main_Window", u"Rechercher", None))
-        self.label_2.setText(QCoreApplication.translate("Main_Window", u"Information sur le fichier :", None))
+        self.fileName.setText(QCoreApplication.translate("Main_Window", u"File Name", None))
+        self.browseButton.setText(QCoreApplication.translate("Main_Window", u"Browse", None))
+        self.label_2.setText(QCoreApplication.translate("Main_Window", u"File Information :", None))
         self.comboBox.setCurrentText("")
-        self.comboBox.setPlaceholderText(QCoreApplication.translate("Main_Window", u"Flotte", None))
-        self.comboBox_2.setPlaceholderText(QCoreApplication.translate("Main_Window", u"Equippement", None))
+        self.comboBox.setPlaceholderText(QCoreApplication.translate("Main_Window", u"Fleet", None))
+        self.comboBox_2.setPlaceholderText(QCoreApplication.translate("Main_Window", u"Equipement", None))
         self.comboBox_4.setCurrentText("")
-        self.comboBox_4.setPlaceholderText(QCoreApplication.translate("Main_Window", u"Num\u00e9ro de la pi\u00e8ce", None))
-        self.toolBox.setItemText(self.toolBox.indexOf(self.page), QCoreApplication.translate("Main_Window", u"Selection des Donn\u00e9es", None))
-        self.pushButton_2.setText(QCoreApplication.translate("Main_Window", u"Actualiser", None))
-        self.toolBox.setItemText(self.toolBox.indexOf(self.page_3), QCoreApplication.translate("Main_Window", u"Propri\u00e9t\u00e9s du Graphique", None))
-        self.label_3.setText(QCoreApplication.translate("Main_Window", u"Programme d'entretien actuelle :", None))
-        self.label_4.setText(QCoreApplication.translate("Main_Window", u"<html><head/><body><p>Num\u00e9ro de la t\u00e2che :</p><p>P/N : </p><p>Type de suivi :</p><p>P\u00e9riodicit\u00e9 :</p></body></html>", None))
-        self.pushButton_3.setText(QCoreApplication.translate("Main_Window", u"Nouveau programme d'entretien", None))
-        self.toolBox.setItemText(self.toolBox.indexOf(self.page_2), QCoreApplication.translate("Main_Window", u"Programme d'entretien", None))
+        self.comboBox_4.setPlaceholderText(QCoreApplication.translate("Main_Window", u"Part Number", None))
+        self.toolBox.setItemText(self.toolBox.indexOf(self.page), QCoreApplication.translate("Main_Window", u"Data Selection", None))
+        self.pushButton_2.setText(QCoreApplication.translate("Main_Window", u"Refresh", None))
+        self.toolBox.setItemText(self.toolBox.indexOf(self.page_3), QCoreApplication.translate("Main_Window", u"Graph Properties", None))
+        self.label_3.setText(QCoreApplication.translate("Main_Window", u"Actual maintenance program :", None))
+        self.label_4.setText(QCoreApplication.translate("Main_Window", u"<html><head/><body><p>Task number :</p><p>P/N : </p><p>Type of tracking :</p><p>Periodicity :</p></body></html>", None))
+        self.pushButton_3.setText(QCoreApplication.translate("Main_Window", u"New Maintenance Program", None))
+        self.toolBox.setItemText(self.toolBox.indexOf(self.page_2), QCoreApplication.translate("Main_Window", u"Maintenance Program", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), QCoreApplication.translate("Main_Window", u"Total Occurency", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_3), QCoreApplication.translate("Main_Window", u"Occurency Leading To Part Remplacement", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), QCoreApplication.translate("Main_Window", u"Linear Regression", None))

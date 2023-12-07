@@ -52,7 +52,7 @@
            <item>
             <widget class="QToolBox" name="toolBox">
              <property name="currentIndex">
-              <number>0</number>
+              <number>2</number>
              </property>
              <widget class="QWidget" name="page">
               <property name="geometry">
@@ -64,7 +64,7 @@
                </rect>
               </property>
               <attribute name="label">
-               <string>Selection des Données</string>
+               <string>Data Selection</string>
               </attribute>
               <layout class="QHBoxLayout" name="horizontalLayout_3">
                <item>
@@ -106,7 +106,7 @@
                         </size>
                        </property>
                        <property name="text">
-                        <string>nom du fichier</string>
+                        <string>File Name</string>
                        </property>
                       </widget>
                      </item>
@@ -119,7 +119,7 @@
                         </size>
                        </property>
                        <property name="text">
-                        <string>Rechercher</string>
+                        <string>Browse</string>
                        </property>
                        <property name="icon">
                         <iconset theme="folder">
@@ -148,7 +148,7 @@
                       </rect>
                      </property>
                      <property name="text">
-                      <string>Information sur le fichier :</string>
+                      <string>File Information :</string>
                      </property>
                     </widget>
                    </widget>
@@ -159,14 +159,14 @@
                      <string/>
                     </property>
                     <property name="placeholderText">
-                     <string>Flotte</string>
+                     <string>Fleet</string>
                     </property>
                    </widget>
                   </item>
                   <item>
                    <widget class="QComboBox" name="comboBox_2">
                     <property name="placeholderText">
-                     <string>Equippement</string>
+                     <string>Equipement</string>
                     </property>
                    </widget>
                   </item>
@@ -176,7 +176,7 @@
                      <string/>
                     </property>
                     <property name="placeholderText">
-                     <string>Numéro de la pièce</string>
+                     <string>Part Number</string>
                     </property>
                    </widget>
                   </item>
@@ -198,7 +198,7 @@
                </rect>
               </property>
               <attribute name="label">
-               <string>Propriétés du Graphique</string>
+               <string>Graph Properties</string>
               </attribute>
               <layout class="QHBoxLayout" name="horizontalLayout_4">
                <item>
@@ -214,12 +214,12 @@
                    <rect>
                     <x>10</x>
                     <y>20</y>
-                    <width>241</width>
+                    <width>281</width>
                     <height>25</height>
                    </rect>
                   </property>
                   <property name="text">
-                   <string>Actualiser</string>
+                   <string>Refresh</string>
                   </property>
                   <property name="icon">
                    <iconset theme="view-refresh">
@@ -240,7 +240,7 @@
                </rect>
               </property>
               <attribute name="label">
-               <string>Programme d'entretien</string>
+               <string>Maintenance Program</string>
               </attribute>
               <layout class="QHBoxLayout" name="horizontalLayout_5">
                <item>
@@ -270,7 +270,7 @@
                         </size>
                        </property>
                        <property name="text">
-                        <string>Programme d'entretien actuelle :</string>
+                        <string>Actual maintenance program :</string>
                        </property>
                        <property name="alignment">
                         <set>Qt::AlignCenter</set>
@@ -280,7 +280,7 @@
                      <item>
                       <widget class="QLabel" name="label_4">
                        <property name="text">
-                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Numéro de la tâche :&lt;/p&gt;&lt;p&gt;P/N : &lt;/p&gt;&lt;p&gt;Type de suivi :&lt;/p&gt;&lt;p&gt;Périodicité :&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Task number :&lt;/p&gt;&lt;p&gt;P/N : &lt;/p&gt;&lt;p&gt;Type of tracking :&lt;/p&gt;&lt;p&gt;Periodicity :&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                        </property>
                       </widget>
                      </item>
@@ -290,7 +290,7 @@
                   <item>
                    <widget class="QPushButton" name="pushButton_3">
                     <property name="text">
-                     <string>Nouveau programme d'entretien</string>
+                     <string>New Maintenance Program</string>
                     </property>
                     <property name="icon">
                      <iconset theme="appointment-new">
