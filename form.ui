@@ -6,12 +6,16 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1030</width>
-    <height>636</height>
+    <width>1176</width>
+    <height>754</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Main_Window</string>
+   <string>Predictive Maintenance</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>Icon.png</normaloff>Icon.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QHBoxLayout" name="horizontalLayout">
@@ -19,7 +23,7 @@
      <widget class="QFrame" name="frame">
       <property name="maximumSize">
        <size>
-        <width>340</width>
+        <width>360</width>
         <height>16777215</height>
        </size>
       </property>
@@ -40,8 +44,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>318</width>
-            <height>552</height>
+            <width>338</width>
+            <height>670</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -55,8 +59,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>300</width>
-                <height>441</height>
+                <width>320</width>
+                <height>559</height>
                </rect>
               </property>
               <attribute name="label">
@@ -94,7 +98,7 @@
                     </property>
                     <layout class="QFormLayout" name="formLayout">
                      <item row="0" column="0">
-                      <widget class="QLabel" name="label">
+                      <widget class="QLabel" name="fileName">
                        <property name="minimumSize">
                         <size>
                          <width>150</width>
@@ -102,7 +106,7 @@
                         </size>
                        </property>
                        <property name="text">
-                        <string>file name</string>
+                        <string>nom du fichier</string>
                        </property>
                       </widget>
                      </item>
@@ -115,7 +119,7 @@
                         </size>
                        </property>
                        <property name="text">
-                        <string>Browse</string>
+                        <string>Rechercher</string>
                        </property>
                        <property name="icon">
                         <iconset theme="folder">
@@ -139,12 +143,12 @@
                       <rect>
                        <x>10</x>
                        <y>10</y>
-                       <width>67</width>
+                       <width>261</width>
                        <height>17</height>
                       </rect>
                      </property>
                      <property name="text">
-                      <string>File Info</string>
+                      <string>Information sur le fichier :</string>
                      </property>
                     </widget>
                    </widget>
@@ -172,7 +176,7 @@
                      <string/>
                     </property>
                     <property name="placeholderText">
-                     <string>Part number</string>
+                     <string>Numéro de la pièce</string>
                     </property>
                    </widget>
                   </item>
@@ -189,8 +193,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>300</width>
-                <height>441</height>
+                <width>320</width>
+                <height>559</height>
                </rect>
               </property>
               <attribute name="label">
@@ -231,8 +235,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>300</width>
-                <height>441</height>
+                <width>320</width>
+                <height>559</height>
                </rect>
               </property>
               <attribute name="label">
@@ -276,7 +280,7 @@
                      <item>
                       <widget class="QLabel" name="label_4">
                        <property name="text">
-                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Task number :&lt;/p&gt;&lt;p&gt;P/N : &lt;/p&gt;&lt;p&gt;Type de suivi :&lt;/p&gt;&lt;p&gt;Périodicité :&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Numéro de la tâche :&lt;/p&gt;&lt;p&gt;P/N : &lt;/p&gt;&lt;p&gt;Type de suivi :&lt;/p&gt;&lt;p&gt;Périodicité :&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                        </property>
                       </widget>
                      </item>
@@ -289,7 +293,8 @@
                      <string>Nouveau programme d'entretien</string>
                     </property>
                     <property name="icon">
-                     <iconset theme="appointment-new"/>
+                     <iconset theme="appointment-new">
+                      <normaloff>.</normaloff>.</iconset>
                     </property>
                    </widget>
                   </item>
@@ -308,18 +313,40 @@
      </widget>
     </item>
     <item>
-     <widget class="QFrame" name="frame_2">
-      <property name="frameShape">
-       <enum>QFrame::StyledPanel</enum>
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="currentIndex">
+       <number>0</number>
       </property>
-      <property name="frameShadow">
-       <enum>QFrame::Raised</enum>
-      </property>
-      <layout class="QVBoxLayout" name="verticalLayout">
-       <item>
-        <widget class="QGraphicsView" name="graphicsView"/>
-       </item>
-      </layout>
+      <widget class="QWidget" name="tab_2">
+       <attribute name="title">
+        <string>Total Occurency</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_2">
+        <item row="0" column="0">
+         <widget class="QWidget" name="plotWidget_hist" native="true"/>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_3">
+       <attribute name="title">
+        <string>Occurency Leading To Part Remplacement</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_3">
+        <item row="0" column="0">
+         <widget class="QWidget" name="plotWidget_hist2" native="true"/>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab">
+       <attribute name="title">
+        <string>Linear Regression</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout">
+        <item row="0" column="0">
+         <widget class="QWidget" name="plotWidget" native="true"/>
+        </item>
+       </layout>
+      </widget>
      </widget>
     </item>
    </layout>
@@ -329,7 +356,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1030</width>
+     <width>1176</width>
      <height>22</height>
     </rect>
    </property>
