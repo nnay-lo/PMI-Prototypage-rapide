@@ -448,8 +448,13 @@ class Main_Window(QMainWindow):
 
         ax = self.figure.add_subplot(111)
         ax.clear()  # Clear existing data/plots
-        ax.scatter(x, somme_occur)
-        ax.plot(x, y_pred)
+        ax.scatter(x, somme_occur, label = "Occurencies")
+
+        ax.set_xlabel('Total Flight Hours Interval')
+        ax.set_ylabel('Number of Occurrences')
+        ax.set_title('Occurrences in Each 5000 Flight Hours Interval with Linear Regression')
+        ax.plot(x, y_pred, label = "Linear regression", c = "r")
+        ax.legend()
 
         # Update the canvas
         self.figure.tight_layout()
