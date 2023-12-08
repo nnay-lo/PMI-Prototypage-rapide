@@ -120,11 +120,29 @@ class Main_Window(QMainWindow):
         self.ui = Ui_Main_Window()
         self.ui.setupUi(self)
 
+        self.PN = ""
+        self.Registrationavion = ""
+        self.equi = ""
+
+        self.database_name = ""
+
         self.connect_interface()
+
+    def update_graph(self):
+
+        self.PN = self.ui.cb_PN.currentText()
+        self.Registrationavion = self.ui.cb_fleet.currentText()
+
+        self.get_linear_regression(self.database_name)
+        self.get_occurency(self.database_name)
 
     def connect_interface(self):
 
         self.ui.browseButton.clicked.connect(self.browse_file)
+
+        self.ui.cb_fleet.currentIndexChanged.connect(self.update_graph)
+        self.ui.cb_equi.currentIndexChanged.connect(self.update_graph)
+        self.ui.cb_PN.currentIndexChanged.connect(self.update_graph)
 
         # Set up the matplotlib figure and canvas
         self.figure = Figure()
@@ -149,6 +167,8 @@ class Main_Window(QMainWindow):
         file_name, _ = QFileDialog.getOpenFileName(self, 'Select a .db file', os.path.dirname(os.path.abspath(__file__))+"/Databases", 'SQLite Database Files (*.db);;All Files (*)', options=options)
 
         if file_name:
+            self.database_name = file_name
+
             info = self.get_database_info(file_name)
             dim_data = info["Info"]
 
@@ -163,12 +183,14 @@ class Main_Window(QMainWindow):
 
 
             self.ui.cb_fleet.clear()  # Clear existing items
+            self.ui.cb_fleet.addItems(["all"])
             self.ui.cb_fleet.addItems(self.extract_column_from_table(file_name, "Avion", "Reg"))  # Add new items
 
             self.ui.cb_equi.clear()  # Clear existing items
             self.ui.cb_equi.addItems(["Tube Pitot"])  # Add new items
 
             self.ui.cb_PN.clear()  # Clear existing items
+            self.ui.cb_PN.addItems(["all"])
             self.ui.cb_PN.addItems(self.extract_column_from_table(file_name, "Equipement", "PN"))  # Add new items
 
             self.get_linear_regression(file_name)
@@ -259,12 +281,41 @@ class Main_Window(QMainWindow):
     def get_occurency(self, file_name):
         conn = sqlite3.connect(file_name)
 
-        # Query to extract data for occurrences
-        query_occurrences = "SELECT FH, COUNT(*) as num_occurrences FROM Occurrences GROUP BY FH"
+        # Check for PN condition
+        if self.PN == "" or self.PN == "all":
+            pn_condition = ""
+        else:
+            pn_condition = f"PN = '{self.PN}'"
+
+        # Check for Registrationavion condition
+        if self.Registrationavion == "" or self.Registrationavion == "all":
+            registration_condition = ""
+        else:
+            registration_condition = f"Registrationavion = '{self.Registrationavion}'"
+
+        # Combine conditions
+        conditions = []
+        if pn_condition:
+            conditions.append(pn_condition)
+        if registration_condition:
+            conditions.append(registration_condition)
+        combined_conditions = " AND ".join(conditions)
+
+        # Formulate the query
+        if combined_conditions:
+            combined_conditions = "WHERE " + combined_conditions
+
+        query_occurrences = f"SELECT FH, COUNT(*) as num_occurrences FROM Occurrences {combined_conditions} GROUP BY FH"
+        query_occurrences_repl = f"SELECT FH, COUNT(*) as num_occurrences FROM Occurrences {combined_conditions} AND Troubleshootingréalisé = 'part replacement' GROUP BY FH"
+
+        # Handle the case where combined_conditions is empty but we need to filter by Troubleshootingréalisé
+        if not combined_conditions:
+            query_occurrences_repl = "SELECT FH, COUNT(*) as num_occurrences FROM Occurrences WHERE Troubleshootingréalisé = 'part replacement' GROUP BY FH"
+
+
         df = pd.read_sql_query(query_occurrences, conn)
 
         # Query to extract data for occurrences that led to part replacement
-        query_occurrences_repl = "SELECT FH, COUNT(*) as num_occurrences FROM Occurrences WHERE Troubleshootingréalisé = 'part replacement' GROUP BY FH"
         df2 = pd.read_sql_query(query_occurrences_repl, conn)
 
         # Creating intervals of 5000 flight hours
@@ -337,8 +388,32 @@ class Main_Window(QMainWindow):
     def get_linear_regression(self, file_name):
         conn = sqlite3.connect(file_name)
 
-        # Query to extract data for occurrences
-        query_occurrences = "SELECT FH, COUNT(*) as num_occurrences FROM Occurrences GROUP BY FH"
+        # Check for PN condition
+        if self.PN == "" or self.PN == "all":
+            pn_condition = ""
+        else:
+            pn_condition = f"PN = '{self.PN}'"
+
+        # Check for Registrationavion condition
+        if self.Registrationavion == "" or self.Registrationavion == "all":
+            registration_condition = ""
+        else:
+            registration_condition = f"Registrationavion = '{self.Registrationavion}'"
+
+        # Combine conditions
+        conditions = []
+        if pn_condition:
+            conditions.append(pn_condition)
+        if registration_condition:
+            conditions.append(registration_condition)
+        combined_conditions = " AND ".join(conditions)
+
+        # Formulate the query_occurrences
+        if combined_conditions:
+            combined_conditions = "WHERE " + combined_conditions
+
+        query_occurrences = f"SELECT FH, COUNT(*) as num_occurrences FROM Occurrences {combined_conditions} GROUP BY FH"
+
         df = pd.read_sql_query(query_occurrences, conn)
 
         # You can set your threshold value
